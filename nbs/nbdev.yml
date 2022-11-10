@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "biobert-bern"
+  site-url: "https://daveramseymusic.github.io/biobert-bern"
+  description: "Use bioBERT via BERN to label biomedical terms in docs"
+  repo-branch: main
+  repo-url: "https://github.com/daveramseymusic/biobert-bern"
