@@ -16,10 +16,6 @@ pip install biobert_bern
 
 ## How to use
 
-Grab
-
-``` python
-1+1
-```
-
-    2
+Grab functions from biobertApi notebook to use the BERN2 api that
+automatically labels biomedical words located in the block of text that
+you send it
