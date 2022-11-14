@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['create_text_block', 'get_comment_spans_textblock', 'query_plain']
 
-# %% ../nbs/00_biobertApi.ipynb 6
+# %% ../nbs/00_biobertApi.ipynb 7
 def create_text_block(df, #pandas DataFrame containg a column, titled "comments," of text elements.  In this case these are Youtube comments.
                      ):
     '''This function takes a pandas DataFrame with a column titled "comments" that is filled with text strings, ie. from comments.  It adds an index number to each text string and adds '::' at the end for later parsing.  Finally, it returns all text elements combined into a single text block'''
@@ -14,7 +14,7 @@ def create_text_block(df, #pandas DataFrame containg a column, titled "comments,
     df.comidx = df.comidx.str.lower().str.replace(r'\(|\)',',',regex=True)
     return ' '.join(df.comidx.tolist())
 
-# %% ../nbs/00_biobertApi.ipynb 11
+# %% ../nbs/00_biobertApi.ipynb 12
 # get "comment" spans
 def get_comment_spans_textblock(text_block:str # single block of text in this structure: `'07 textt ext text. ::'`
                                ):
@@ -32,7 +32,7 @@ def get_comment_spans_textblock(text_block:str # single block of text in this st
             dfi = dfi.append({'text':text,'start':start,'end':end,'span':span},ignore_index=True)
     return dfi
 
-# %% ../nbs/00_biobertApi.ipynb 17
+# %% ../nbs/00_biobertApi.ipynb 18
 def query_plain(text:str, #single block of bioMedical text
                 url="http://bern2.korea.ac.kr/plain"): # the api address
     '''This function sends your `text_block` to the bern2 API and returns a json of labled biomedical terms from `text_block` with thier indecies.'''
