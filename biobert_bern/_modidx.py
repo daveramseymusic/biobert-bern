@@ -5,4 +5,6 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://daveramseymusic.github.io',
                 'git_url': 'https://github.com/daveramseymusic/biobert-bern',
                 'lib_path': 'biobert_bern'},
-  'syms': {'biobert_bern.core': {'biobert_bern.core.foo': ('core.html#foo', 'biobert_bern/core.py')}}}
+  'syms': { 'biobert_bern.biobertApi': { 'biobert_bern.biobertApi.create_text_block': ( 'biobertapi.html#create_text_block',
+                                                                                        'biobert_bern/biobertApi.py')},
+            'biobert_bern.core': {'biobert_bern.core.foo': ('core.html#foo', 'biobert_bern/core.py')}}}
