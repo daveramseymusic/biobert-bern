@@ -3,6 +3,12 @@
 # %% auto 0
 __all__ = ['create_text_block', 'get_comment_spans_textblock', 'query_plain']
 
+# %% ../nbs/00_biobertApi.ipynb 2
+import requests
+import re
+import pandas as pd
+from nbdev.showdoc import *
+
 # %% ../nbs/00_biobertApi.ipynb 7
 def create_text_block(df, #pandas DataFrame containg a column, titled "comments," of text elements.  In this case these are Youtube comments.
                      ):
