@@ -16,9 +16,11 @@ def create_text_block(df, #pandas DataFrame containg a column, titled "comments,
     df.reset_index(inplace=True)
     df.rename(columns = {"index":"idx"},inplace=True)
     df.idx = df.idx.astype(str)
-    df['comidx'] = str(df.idx) +':: '+df.comments+' ::'
+    df['comidx'] = df.idx +':: '+df.comments+' ::'
     df.comidx = df.comidx.str.lower().str.replace(r'\(|\)',',',regex=True)
-    return ' '.join(df.comidx.tolist())
+    text_block = ' '.join(df.comidx.tolist())
+
+    return text_block
 
 # %% ../nbs/00_biobertApi.ipynb 12
 # get "comment" spans
