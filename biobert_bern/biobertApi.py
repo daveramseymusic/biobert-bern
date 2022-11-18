@@ -16,7 +16,7 @@ def create_text_block(df, #pandas DataFrame containg a column, titled "comments,
     df.reset_index(inplace=True)
     df.rename(columns = {"index":"idx"},inplace=True)
     df.idx = df.idx.astype(str)
-    df['comidx'] = df.idx +': '+df.comments+' ::'
+    df['comidx'] = str(df.idx) +':: '+df.comments+' ::'
     df.comidx = df.comidx.str.lower().str.replace(r'\(|\)',',',regex=True)
     return ' '.join(df.comidx.tolist())
 
@@ -26,10 +26,13 @@ def get_comment_spans_textblock(text_block:str # single block of text in this st
                                ):
     '''This function returns a dataframe full of the start, end and span of each text comment/doc in the text_block'''    
     string = text_block
-    pattern = r'(\d:.*?)::'
+    pattern = r'(\d+:.*?)::'
     dfi = pd.DataFrame()
     for o in re.findall(pattern,string):
-            match=(re.search(o, string))
+            stridx = re.findall(r'(\d+)?::',o) #find the index of the comment from inside the textblock
+            stridx = stridx[0]
+            pattern2 = fr'({stridx}::.*?)::'  #use this pattern to find the specific text of 'o'
+            match=(re.search(pattern2, string))
             #Getting the start and end index in tuple format using match.span()
             text = o
             start = match.start()

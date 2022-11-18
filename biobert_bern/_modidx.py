@@ -10,4 +10,6 @@ d = { 'settings': { 'branch': 'main',
                                          'biobert_bern.biobertApi.get_comment_spans_textblock': ( 'biobertapi.html#get_comment_spans_textblock',
                                                                                                   'biobert_bern/biobertApi.py'),
                                          'biobert_bern.biobertApi.query_plain': ( 'biobertapi.html#query_plain',
-                                                                                  'biobert_bern/biobertApi.py')}}}
+                                                                                  'biobert_bern/biobertApi.py')},
+            'biobert_bern.fmf_biobert': { 'biobert_bern.fmf_biobert.get_comment_spans_textblock': ( 'found_my_fitness_biobert_bern.html#get_comment_spans_textblock',
+                                                                                                    'biobert_bern/fmf_biobert.py')}}}
