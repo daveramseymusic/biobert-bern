@@ -2,7 +2,7 @@
 
 # %% auto 0
 __all__ = ['text', 'text1', 'text2', 'text3', 'texts', 'coms', 'blocks', 'create_com_with_idx', 'make_5k_sections',
-           'create_text_block', 'create_all_text_blocks', 'get_comment_spans_textblock', 'query_plain']
+           'create_one_large_text_block', 'create_all_text_blocks', 'get_comment_spans_textblock', 'query_plain']
 
 # %% ../nbs/00_biobertApi.ipynb 2
 import requests
@@ -64,7 +64,7 @@ def make_5k_sections(df):
     return df1
 
 # %% ../nbs/00_biobertApi.ipynb 11
-def create_text_block(df):
+def create_one_large_text_block(df):
         text_block = ' '.join(df.comidx.tolist()) 
         return text_block
 
