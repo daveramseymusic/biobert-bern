@@ -29,8 +29,6 @@ def create_com_with_idx(df, #pandas DataFrame containg a column, titled "comment
     df.idx = df.idx.astype(str)
     df['comidx'] = df.idx +':: '+df.comments+' ::'
     df.comidx = df.comidx.str.lower().str.replace(r'\(|\)',',',regex=True)
-
-
     return df
 
 # %% ../nbs/00_biobertApi.ipynb 8
@@ -71,10 +69,14 @@ def create_one_large_text_block(df):
 # %% ../nbs/00_biobertApi.ipynb 12
 def create_all_text_blocks(df):
     '''This function creates multiple text blocks all less than 5k char.'''
+    
     df = make_5k_sections(df)
+    
     blocks = []
+
     for o in df.section.unique():
         dfbl = df.loc[df.section == o]
+        
         text_block = ' '.join(dfbl.comidx.tolist())
         blocks.append(text_block)
     return blocks
@@ -82,7 +84,6 @@ def create_all_text_blocks(df):
 blocks =  create_all_text_blocks(df=coms)
 
 # %% ../nbs/00_biobertApi.ipynb 17
-# get "comment" spans
 def get_comment_spans_textblock(text_block:str # single block of text in this structure: `'07 textt ext text. ::'`
                                ):
     '''This function returns a dataframe full of the start, end and span of each text comment/doc in the text_block'''    
