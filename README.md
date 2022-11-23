@@ -17,3 +17,13 @@ pip install biobert_bern
 Grab functions from biobertApi notebook to use the BERN2 api that
 automatically labels biomedical words located in the block of text that
 you send it
+
+# [Found My Fitness Example](https://daveramseymusic.github.io/biobert-bern/found_my_fitness_biobert_bern.html)
+
+> Here we’ll try using elements from the biobertApi module to label
+> biomedical terms in the comments section of a Found My Fitness youtube
+> video that looks like this :
+> <a href="http://www.youtube.com/watch?feature=player_embedded&v=g4QqJoox8tc
+> " target="_blank"><img src="http://img.youtube.com/vi/g4QqJoox8tc/0.jpg" 
+> alt="IMAGE Youtube Vid" width="240" height="180" border="10" /></a>
+> \>\>![alt text](fmf_biobert_bern.png "Found My Fitness Youtube Video")
