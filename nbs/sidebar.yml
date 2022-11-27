@@ -3,3 +3,4 @@ website:
     contents:
       - index.ipynb
       - 00_biobertApi.ipynb
+      - 01_found_my_fitness_bioBert_BERN.ipynb
