@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>biobert-bern - biobertApi</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="biobert-bern - biobertApi">
+<meta property="og:description" content="source">
+<meta property="og:site-name" content="biobert-bern">
+<meta name="twitter:title" content="biobert-bern - biobertApi">
+<meta name="twitter:description" content="source">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">biobert-bern</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">biobertApi</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Intro biobert-bern</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./biobertapi.html" class="sidebar-item-text sidebar-link active">biobertApi</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./found_my_fitness_biobert_bern.html" class="sidebar-item-text sidebar-link">Found My Fitness Example</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./zero_shot_linkedin_test.html" class="sidebar-item-text sidebar-link">Zero Shot Classification</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#example-texts" id="toc-example-texts" class="nav-link active" data-scroll-target="#example-texts">Example Texts</a></li>
+  <li><a href="#create-single-text-block-from-text-that-is-easily-re-separated" id="toc-create-single-text-block-from-text-that-is-easily-re-separated" class="nav-link" data-scroll-target="#create-single-text-block-from-text-that-is-easily-re-separated">Create Single Text Block from Text That is easily re-separated</a></li>
+  <li><a href="#create_com_with_idx" id="toc-create_com_with_idx" class="nav-link" data-scroll-target="#create_com_with_idx">create_com_with_idx</a></li>
+  <li><a href="#create_text_block-example" id="toc-create_text_block-example" class="nav-link" data-scroll-target="#create_text_block-example">create_text_block example</a></li>
+  <li><a href="#make_5k_sections" id="toc-make_5k_sections" class="nav-link" data-scroll-target="#make_5k_sections">make_5k_sections</a></li>
+  <li><a href="#create_one_large_text_block" id="toc-create_one_large_text_block" class="nav-link" data-scroll-target="#create_one_large_text_block">create_one_large_text_block</a></li>
+  <li><a href="#create_all_text_blocks" id="toc-create_all_text_blocks" class="nav-link" data-scroll-target="#create_all_text_blocks">create_all_text_blocks</a></li>
+  <li><a href="#get-start-and-end-doc-indecies" id="toc-get-start-and-end-doc-indecies" class="nav-link" data-scroll-target="#get-start-and-end-doc-indecies">Get Start and End Doc Indecies</a>
+  <ul class="collapse">
+  <li><a href="#get_comment_spans_textblock" id="toc-get_comment_spans_textblock" class="nav-link" data-scroll-target="#get_comment_spans_textblock">get_comment_spans_textblock</a></li>
+  </ul></li>
+  <li><a href="#send-combined-text-to-bern2" id="toc-send-combined-text-to-bern2" class="nav-link" data-scroll-target="#send-combined-text-to-bern2">Send combined text to bern2</a>
+  <ul class="collapse">
+  <li><a href="#query-function" id="toc-query-function" class="nav-link" data-scroll-target="#query-function">Query Function:</a></li>
+  <li><a href="#query_plain" id="toc-query_plain" class="nav-link" data-scroll-target="#query_plain">query_plain</a></li>
+  <li><a href="#example-of-query_plain-output" id="toc-example-of-query_plain-output" class="nav-link" data-scroll-target="#example-of-query_plain-output">Example of query_plain Output</a></li>
+  <li><a href="#send-it-all-to-bern2" id="toc-send-it-all-to-bern2" class="nav-link" data-scroll-target="#send-it-all-to-bern2">Send it all to Bern2</a></li>
+  <li><a href="#add-bern2-lables-to-docs" id="toc-add-bern2-lables-to-docs" class="nav-link" data-scroll-target="#add-bern2-lables-to-docs">Add BERN2 Lables to Docs</a></li>
+  <li><a href="#output-df" id="toc-output-df" class="nav-link" data-scroll-target="#output-df">Output df</a>
+  <ul class="collapse">
+  <li><a href="#show-of-comments-that-contain-word" id="toc-show-of-comments-that-contain-word" class="nav-link" data-scroll-target="#show-of-comments-that-contain-word">Show # of Comments that Contain Word</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/daveramseymusic/biobert-bern/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">biobertApi</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="example-texts" class="level3">
+<h3 class="anchored" data-anchor-id="example-texts">Example Texts</h3>
+</section>
+<section id="create-single-text-block-from-text-that-is-easily-re-separated" class="level3">
+<h3 class="anchored" data-anchor-id="create-single-text-block-from-text-that-is-easily-re-separated">Create Single Text Block from Text That is easily re-separated</h3>
+<hr>
+<p><a href="https://github.com/daveramseymusic/biobert-bern/blob/main/biobert_bern/biobertApi.py#L24" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="create_com_with_idx" class="level3">
+<h3 class="anchored" data-anchor-id="create_com_with_idx">create_com_with_idx</h3>
+<blockquote class="blockquote">
+<pre><code> create_com_with_idx (df)</code></pre>
+</blockquote>
+<p>This function takes a pandas DataFrame with a column titled “comments” that is filled with text strings, ie. from comments. It adds an index number to each text string and adds ‘::’ at the end for later parsing. Finally, it returns all text elements combined into a single text block</p>
+<table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>df</td>
+<td>pandas DataFrame containg a column, titled “comments,” of text elements. In this case these are Youtube comments.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="create_text_block-example" class="level3">
+<h3 class="anchored" data-anchor-id="create_text_block-example">create_text_block example</h3>
+<hr>
+<p><a href="https://github.com/daveramseymusic/biobert-bern/blob/main/biobert_bern/biobertApi.py#L38" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="make_5k_sections" class="level3">
+<h3 class="anchored" data-anchor-id="make_5k_sections">make_5k_sections</h3>
+<blockquote class="blockquote">
+<pre><code> make_5k_sections (df)</code></pre>
+</blockquote>
+<p>This Function gives section numbers to rows in order to group them later so that each text block is less than 5k characters.</p>
+<hr>
+<p><a href="https://github.com/daveramseymusic/biobert-bern/blob/main/biobert_bern/biobertApi.py#L65" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="create_one_large_text_block" class="level3">
+<h3 class="anchored" data-anchor-id="create_one_large_text_block">create_one_large_text_block</h3>
+<blockquote class="blockquote">
+<pre><code> create_one_large_text_block (df)</code></pre>
+</blockquote>
+<hr>
+<p><a href="https://github.com/daveramseymusic/biobert-bern/blob/main/biobert_bern/biobertApi.py#L70" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="create_all_text_blocks" class="level3">
+<h3 class="anchored" data-anchor-id="create_all_text_blocks">create_all_text_blocks</h3>
+<blockquote class="blockquote">
+<pre><code> create_all_text_blocks (df)</code></pre>
+</blockquote>
+<p>This function creates multiple text blocks all less than 5k char.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>text_block <span class="op">=</span> create_one_large_text_block(df<span class="op">=</span>coms)<span class="op">;</span> text_block[:<span class="dv">250</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>NameError: name 'create_one_large_text_block' is not defined</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># show_doc(create_text_block)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-start-and-end-doc-indecies" class="level2">
+<h2 class="anchored" data-anchor-id="get-start-and-end-doc-indecies">Get Start and End Doc Indecies</h2>
+<blockquote class="blockquote">
+<p>Here we’ll use regex to find the text indecies of each doc or comment. This will tell us which doc or comment is teh parent of each biomedical term returned from BERN2</p>
+</blockquote>
+<hr>
+<p><a href="https://github.com/daveramseymusic/biobert-bern/blob/main/biobert_bern/fmf_biobert.py#L8" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="get_comment_spans_textblock" class="level3">
+<h3 class="anchored" data-anchor-id="get_comment_spans_textblock">get_comment_spans_textblock</h3>
+<blockquote class="blockquote">
+<pre><code> get_comment_spans_textblock (text_block:str)</code></pre>
+</blockquote>
+<p>This function returns a dataframe full of the start, end and span of each text comment/doc in the text_block</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>text_block</td>
+<td>str</td>
+<td>single block of text in this structure: <code>'07 textt ext text. ::'</code></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dfi <span class="op">=</span> get_comment_spans_textblock(text_block)<span class="op">;</span> dfi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>text</th>
+      <th>start</th>
+      <th>end</th>
+      <th>span</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0:: autophagy maintains tumour growth through ...</td>
+      <td>0.0</td>
+      <td>80.0</td>
+      <td>(0, 80)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1:: x-rays were negative and physical assessme...</td>
+      <td>81.0</td>
+      <td>305.0</td>
+      <td>(81, 305)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2:: it is a skin disease causing much itchines...</td>
+      <td>306.0</td>
+      <td>450.0</td>
+      <td>(306, 450)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3:: maybe its a tumour. maybe take some tyleno...</td>
+      <td>451.0</td>
+      <td>541.0</td>
+      <td>(451, 541)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="send-combined-text-to-bern2" class="level1">
+<h1>Send combined text to bern2</h1>
+<section id="query-function" class="level3">
+<h3 class="anchored" data-anchor-id="query-function">Query Function:</h3>
+<blockquote class="blockquote">
+<p>This function will send our text to bern2 using their API to get the text labeled</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>text_block</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>"0:: autophagy maintains tumour growth through circulating the great arginine. :: 1:: x-rays were negative and physical assessment determined soft tissue damage to the lateral aspect of her ankle. she was initially treated with ice, an ace wrap, crutches and mild pain medications ,tylenol with codeine, :: 2:: it is a skin disease causing much itchiness. scratching leads to redness, swelling, cracking, weeping clear fluid, crusting, and scaling. :: 3:: maybe its a tumour. maybe take some tylenol. don't worry i'm not a doctor. i'm dave ::"</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/daveramseymusic/biobert-bern/blob/main/biobert_bern/biobertApi.py#L107" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="query_plain" class="level3">
+<h3 class="anchored" data-anchor-id="query_plain">query_plain</h3>
+<blockquote class="blockquote">
+<pre><code> query_plain (text:str, url='http://bern2.korea.ac.kr/plain')</code></pre>
+</blockquote>
+<p>This function sends your <code>text_block</code> to the bern2 API and returns a json of labled biomedical terms from <code>text_block</code> with thier indecies.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>text</td>
+<td>str</td>
+<td></td>
+<td>single block of bioMedical text</td>
+</tr>
+<tr class="even">
+<td>url</td>
+<td>str</td>
+<td>http://bern2.korea.ac.kr/plain</td>
+<td>the api address</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># show_doc(query_plain)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="example-of-query_plain-output" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-query_plain-output">Example of query_plain Output</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>text_block</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>"0:: autophagy maintains tumour growth through circulating the great arginine. :: 1:: x-rays were negative and physical assessment determined soft tissue damage to the lateral aspect of her ankle. she was initially treated with ice, an ace wrap, crutches and mild pain medications ,tylenol with codeine, :: 2:: it is a skin disease causing much itchiness. scratching leads to redness, swelling, cracking, weeping clear fluid, crusting, and scaling. :: 3:: maybe its a tumour. maybe take some tylenol. don't worry i'm not a doctor. i'm dave ::"</code></pre>
+</div>
+</div>
+</section>
+<section id="send-it-all-to-bern2" class="level2">
+<h2 class="anchored" data-anchor-id="send-it-all-to-bern2">Send it all to Bern2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Send it all to Bern2</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># output = query_plain(text=text_block);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="an-example-of-the-bern2-out-put" class="level4">
+<h4 class="anchored" data-anchor-id="an-example-of-the-bern2-out-put">An example of the bern2 out put</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> {<span class="st">'annotations'</span>: [{<span class="st">'id'</span>: [<span class="st">'mesh:D009369'</span>],</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">False</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'tumour'</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'disease'</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9999957084655762</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">23</span>, <span class="st">'end'</span>: <span class="dv">29</span>}},</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D001120'</span>],</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">False</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'arginine'</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'drug'</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9939362406730652</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">67</span>, <span class="st">'end'</span>: <span class="dv">75</span>}},</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D000082'</span>],</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">False</span>,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'tylenol'</span>,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'drug'</span>,</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9972689747810364</span>,</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">278</span>, <span class="st">'end'</span>: <span class="dv">285</span>}},</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D003061'</span>],</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">False</span>,</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'codeine'</span>,</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'drug'</span>,</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.947392463684082</span>,</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">291</span>, <span class="st">'end'</span>: <span class="dv">298</span>}},</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D012871'</span>],</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">False</span>,</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'skin disease'</span>,</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'disease'</span>,</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9998037815093994</span>,</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">313</span>, <span class="st">'end'</span>: <span class="dv">325</span>}},</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D011537'</span>],</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">False</span>,</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'itchiness'</span>,</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'disease'</span>,</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9898108243942261</span>,</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">339</span>, <span class="st">'end'</span>: <span class="dv">348</span>}},</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D000080822'</span>],</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">False</span>,</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'redness'</span>,</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'disease'</span>,</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9481215476989746</span>,</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">370</span>, <span class="st">'end'</span>: <span class="dv">377</span>}},</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D004487'</span>],</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">True</span>,</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'swelling'</span>,</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'disease'</span>,</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9774566292762756</span>,</span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">379</span>, <span class="st">'end'</span>: <span class="dv">387</span>}},</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D012135'</span>],</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">True</span>,</span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'cracking'</span>,</span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'disease'</span>,</span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.8271865248680115</span>,</span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">389</span>, <span class="st">'end'</span>: <span class="dv">397</span>}},</span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D002862'</span>],</span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">True</span>,</span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'crusting'</span>,</span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'disease'</span>,</span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9943530559539795</span>,</span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">420</span>, <span class="st">'end'</span>: <span class="dv">428</span>}},</span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D012871'</span>],</span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">True</span>,</span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'scaling'</span>,</span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'disease'</span>,</span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9980024695396423</span>,</span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">434</span>, <span class="st">'end'</span>: <span class="dv">441</span>}},</span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D009369'</span>],</span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">False</span>,</span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'tumour'</span>,</span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'disease'</span>,</span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9999805688858032</span>,</span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">460</span>, <span class="st">'end'</span>: <span class="dv">466</span>}},</span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>  {<span class="st">'id'</span>: [<span class="st">'mesh:D000082'</span>],</span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a>   <span class="st">'is_neural_normalized'</span>: <span class="va">False</span>,</span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a>   <span class="st">'mention'</span>: <span class="st">'tylenol'</span>,</span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>   <span class="st">'obj'</span>: <span class="st">'drug'</span>,</span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a>   <span class="st">'prob'</span>: <span class="fl">0.9799597263336182</span>,</span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a>   <span class="st">'span'</span>: {<span class="st">'begin'</span>: <span class="dv">484</span>, <span class="st">'end'</span>: <span class="dv">491</span>}}],</span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a> <span class="st">'text'</span>: <span class="st">"0: autophagy maintains tumour growth through circulating the great arginine.:: 1: x-rays were negative and physical assessment determined soft tissue damage to the lateral aspect of her ankle. she was initially treated with ice, an ace wrap, crutches and mild pain medications ,tylenol with codeine,:: 2: it is a skin disease causing much itchiness. scratching leads to redness, swelling, cracking, weeping clear fluid, crusting, and scaling.:: 3: maybe its a tumour. maybe take some tylenol. don't worry i'm not a doctor. i'm dave::"</span>,</span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a> <span class="st">'timestamp'</span>: <span class="st">'Mon Nov 14 18:00:04 +0000 2022'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Example of overall df</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(output)[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>annotations</th>
+      <th>text</th>
+      <th>timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td>{'id': ['mesh:D012871'], 'is_neural_normalized...</td>
+      <td>0: autophagy maintains tumour growth through c...</td>
+      <td>Mon Nov 14 18:00:04 +0000 2022</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>{'id': ['mesh:D009369'], 'is_neural_normalized...</td>
+      <td>0: autophagy maintains tumour growth through c...</td>
+      <td>Mon Nov 14 18:00:04 +0000 2022</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Example of df from just the <code>annotations</code> column</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(output[<span class="st">'annotations'</span>])[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>is_neural_normalized</th>
+      <th>mention</th>
+      <th>obj</th>
+      <th>prob</th>
+      <th>span</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td>[mesh:D012871]</td>
+      <td>True</td>
+      <td>scaling</td>
+      <td>disease</td>
+      <td>0.998002</td>
+      <td>{'begin': 434, 'end': 441}</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>[mesh:D009369]</td>
+      <td>False</td>
+      <td>tumour</td>
+      <td>disease</td>
+      <td>0.999981</td>
+      <td>{'begin': 460, 'end': 466}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="add-bern2-lables-to-docs" class="level2">
+<h2 class="anchored" data-anchor-id="add-bern2-lables-to-docs">Add BERN2 Lables to Docs</h2>
+<blockquote class="blockquote">
+<p>We sent all separate text documents as one big text document to bern2. Now we’ll re-separate the labeled text to show which biomedical words were in which documents.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dfa <span class="op">=</span> pd.DataFrame(output[<span class="st">'annotations'</span>]) <span class="co">#crete dfa for dataframe of Annotaation</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create str_end col as type str</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>dfa.span <span class="op">=</span> dfa.span.astype(<span class="bu">str</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>dfa [<span class="st">'str_end'</span>] <span class="op">=</span> dfa.span.<span class="bu">str</span>.replace(<span class="vs">r".*'end': (\d+)}"</span>,<span class="vs">r"\1"</span>,regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>dfa.str_end <span class="op">=</span> dfa.str_end.astype(<span class="bu">int</span>)  <span class="co"># make str end as type str</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#add dfi_idx col</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>dfi.reset_index(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>dfi.rename(columns<span class="op">=</span>{<span class="st">'index'</span>:<span class="st">'dfi_idx'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o,m <span class="kw">in</span> <span class="bu">zip</span>(dfi.index,dfi.span):  <span class="co">#add dfi_idx col to dfa </span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    x,y <span class="op">=</span> m <span class="co">#open span tuple</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#write conditions for specific df rows</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    conds <span class="op">=</span> (dfa.str_end <span class="op">&gt;</span> x) <span class="op">&amp;</span> (dfa.str_end <span class="op">&lt;</span> y)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    dfa.loc[conds,<span class="st">'dfi_idx'</span>] <span class="op">=</span> o <span class="co">#save the index of the dfi span that fits to dfa</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># dfa.merge(dfi, left_on='dfi_idx',right_index=True)</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> dfa.merge(dfi, left_on<span class="op">=</span><span class="st">'dfi_idx'</span>,right_on<span class="op">=</span><span class="st">'dfi_idx'</span>)<span class="op">;</span>  df.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>is_neural_normalized</th>
+      <th>mention</th>
+      <th>obj</th>
+      <th>prob</th>
+      <th>span_x</th>
+      <th>str_end</th>
+      <th>dfi_idx</th>
+      <th>text</th>
+      <th>start</th>
+      <th>end</th>
+      <th>span_y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>[mesh:D009369]</td>
+      <td>False</td>
+      <td>tumour</td>
+      <td>disease</td>
+      <td>0.999996</td>
+      <td>{'begin': 23, 'end': 29}</td>
+      <td>29</td>
+      <td>0.0</td>
+      <td>0:: autophagy maintains tumour growth through ...</td>
+      <td>0.0</td>
+      <td>80.0</td>
+      <td>(0, 80)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>[mesh:D001120]</td>
+      <td>False</td>
+      <td>arginine</td>
+      <td>drug</td>
+      <td>0.993936</td>
+      <td>{'begin': 67, 'end': 75}</td>
+      <td>75</td>
+      <td>0.0</td>
+      <td>0:: autophagy maintains tumour growth through ...</td>
+      <td>0.0</td>
+      <td>80.0</td>
+      <td>(0, 80)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="output-df" class="level2">
+<h2 class="anchored" data-anchor-id="output-df">Output df</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[[<span class="st">'dfi_idx'</span>,<span class="st">'mention'</span>,<span class="st">'obj'</span>,<span class="st">'text'</span>]]<span class="op">;</span> df[<span class="op">-</span><span class="dv">4</span>:<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>dfi_idx</th>
+      <th>mention</th>
+      <th>obj</th>
+      <th>text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>9</th>
+      <td>2.0</td>
+      <td>crusting</td>
+      <td>disease</td>
+      <td>2:: it is a skin disease causing much itchines...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2.0</td>
+      <td>scaling</td>
+      <td>disease</td>
+      <td>2:: it is a skin disease causing much itchines...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>3.0</td>
+      <td>tumour</td>
+      <td>disease</td>
+      <td>3:: maybe its a tumour. maybe take some tyleno...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="show-of-comments-that-contain-word" class="level3">
+<h3 class="anchored" data-anchor-id="show-of-comments-that-contain-word">Show # of Comments that Contain Word</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dfwords <span class="op">=</span> df.groupby([<span class="st">'mention'</span>]).dfi_idx.count().reset_index().sort_values(<span class="st">'dfi_idx'</span>,ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !pip install seaborn</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import seaborn as sns</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># import matplotlib.pyplot as plt</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # Set the width and height of the figure</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.figure(figsize=(8,6))</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ax = sns.barplot(x=dfwords.dfi_idx, y=dfwords.mention)</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># #title</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_title(f'Biomedical Terms in Comments')</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># # Add label for  axis</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set(xlabel='Number of commenters mentioning the term')</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

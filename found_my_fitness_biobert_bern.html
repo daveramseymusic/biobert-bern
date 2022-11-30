@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>biobert-bern - Found My Fitness Example</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="biobert-bern - Found My Fitness Example">
+<meta property="og:description" content="Here we’ll try using elements from the biobertApi module to label biomedical terms in the comments section of a Found My Fitness youtube video that looks like this :">
+<meta property="og:site-name" content="biobert-bern">
+<meta name="twitter:title" content="biobert-bern - Found My Fitness Example">
+<meta name="twitter:description" content="Here we’ll try using elements from the biobertApi module to label biomedical terms in the comments section of a Found My Fitness youtube video that looks like this :">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">biobert-bern</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Found My Fitness Example</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Intro biobert-bern</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./biobertapi.html" class="sidebar-item-text sidebar-link">biobertApi</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./found_my_fitness_biobert_bern.html" class="sidebar-item-text sidebar-link active">Found My Fitness Example</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./zero_shot_linkedin_test.html" class="sidebar-item-text sidebar-link">Zero Shot Classification</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load-libraries-and-data" id="toc-load-libraries-and-data" class="nav-link active" data-scroll-target="#load-libraries-and-data">Load Libraries and Data</a></li>
+  <li><a href="#now-start-splitting-off-all-the-cumsums-5000-and-stack-them-back-together." id="toc-now-start-splitting-off-all-the-cumsums-5000-and-stack-them-back-together." class="nav-link" data-scroll-target="#now-start-splitting-off-all-the-cumsums-5000-and-stack-them-back-together.">Now start splitting off all the cumsums &lt;5000 and stack them back together.</a>
+  <ul class="collapse">
+  <li><a href="#create-section-labels" id="toc-create-section-labels" class="nav-link" data-scroll-target="#create-section-labels">Create Section Labels</a></li>
+  </ul></li>
+  <li><a href="#create-text-blocks" id="toc-create-text-blocks" class="nav-link" data-scroll-target="#create-text-blocks">Create Text Blocks</a>
+  <ul class="collapse">
+  <li><a href="#check-the-top-and-bottom-text-blocks" id="toc-check-the-top-and-bottom-text-blocks" class="nav-link" data-scroll-target="#check-the-top-and-bottom-text-blocks">Check the top and bottom text blocks</a></li>
+  </ul></li>
+  <li><a href="#query-bern-one-block-at-a-time" id="toc-query-bern-one-block-at-a-time" class="nav-link" data-scroll-target="#query-bern-one-block-at-a-time">Query BERN one block at a time</a></li>
+  <li><a href="#concat-all-text-blocks-into-a-nice-labeled-df" id="toc-concat-all-text-blocks-into-a-nice-labeled-df" class="nav-link" data-scroll-target="#concat-all-text-blocks-into-a-nice-labeled-df">Concat All Text Blocks into a nice labeled df</a></li>
+  <li><a href="#use-some-regex-to-consolidate-some-terms-or-mentions" id="toc-use-some-regex-to-consolidate-some-terms-or-mentions" class="nav-link" data-scroll-target="#use-some-regex-to-consolidate-some-terms-or-mentions">use some regex to consolidate some terms or ‘mentions’</a></li>
+  <li><a href="#graph-the-bio-terms" id="toc-graph-the-bio-terms" class="nav-link" data-scroll-target="#graph-the-bio-terms">Graph the Bio Terms</a>
+  <ul class="collapse">
+  <li><a href="#here-well-create-a-function-to-plot-what-weve-grouped" id="toc-here-well-create-a-function-to-plot-what-weve-grouped" class="nav-link" data-scroll-target="#here-well-create-a-function-to-plot-what-weve-grouped">Here we’ll create a function to plot what we’ve grouped</a></li>
+  <li><a href="#unique-users-who-mention-a-term" id="toc-unique-users-who-mention-a-term" class="nav-link" data-scroll-target="#unique-users-who-mention-a-term">Unique Users Who Mention a Term</a></li>
+  </ul></li>
+  <li><a href="#unique-comments-that-mention-a-term" id="toc-unique-comments-that-mention-a-term" class="nav-link" data-scroll-target="#unique-comments-that-mention-a-term">Unique Comments that mention a term</a>
+  <ul class="collapse">
+  <li><a href="#terms-mentioned-infrequently" id="toc-terms-mentioned-infrequently" class="nav-link" data-scroll-target="#terms-mentioned-infrequently">Terms Mentioned Infrequently</a></li>
+  <li><a href="#save-top-bio-terms-.csv" id="toc-save-top-bio-terms-.csv" class="nav-link" data-scroll-target="#save-top-bio-terms-.csv">Save Top Bio Terms .csv</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/daveramseymusic/biobert-bern/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Found My Fitness Example</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<p>Here we’ll try using elements from the biobertApi module to label biomedical terms in the comments section of a Found My Fitness youtube video that looks like this :</p>
+<blockquote class="blockquote">
+<h4 id="import-all-functions-from-pypi-by-typing-into-your-terminal" class="anchored">Import all functions from <a href="https://pypi.org/project/biobert-bern/0.0.1/">PyPi</a> by typing into your terminal:</h4>
+<p>pip install biobert-bern</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><a href="http://www.youtube.com/watch?feature=player_embedded&amp;v=g4QqJoox8tc
+" target="_blank"><img src="http://img.youtube.com/vi/g4QqJoox8tc/0.jpg" alt="IMAGE Youtube Vid" width="240" height="180" border="10"></a> &gt;&gt;<img src="fmf_biobert_bern.png" title="Found My Fitness Youtube Video" class="img-fluid" alt="alt text"></p>
+</blockquote>
+<section id="load-libraries-and-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-libraries-and-data">Load Libraries and Data</h2>
+<blockquote class="blockquote">
+<p>First we’ll load all libraries we’ll need and the YouTube comments for labeling</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> biobert_bern.biobertApi <span class="im">import</span> <span class="op">*</span>  <span class="co">#this grabs all functions from biobertApi .py file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Less than 5k characters. Only 1 block necessary.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nbdev.showdoc <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fastai</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np     </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path(<span class="st">'./text_sample'</span>) <span class="co"># save path</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>comment_csv<span class="op">=</span> <span class="st">'found_my_fitness_UCWF8SqJVNlx-ctXbLswcTcA_youtube_comments_only_121rows.csv'</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>coms <span class="op">=</span> pd.read_csv(path<span class="op">/</span>comment_csv) <span class="co">#load csv</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>coms.rename(columns <span class="op">=</span> {<span class="st">'comment'</span>: <span class="st">'comments'</span>},inplace<span class="op">=</span><span class="va">True</span>) <span class="co"># rename comment to comments</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="now-start-splitting-off-all-the-cumsums-5000-and-stack-them-back-together." class="level2">
+<h2 class="anchored" data-anchor-id="now-start-splitting-off-all-the-cumsums-5000-and-stack-them-back-together.">Now start splitting off all the cumsums &lt;5000 and stack them back together.</h2>
+<blockquote class="blockquote">
+<p>The BERN api will only let us send text that is less thatn 5k characters at a time so we’ll block the comments together in groups that are less than 5k each</p>
+</blockquote>
+<section id="create-section-labels" class="level3">
+<h3 class="anchored" data-anchor-id="create-section-labels">Create Section Labels</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>coms <span class="op">=</span> create_com_with_idx(coms)<span class="op">;</span> coms.tail(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>idx</th>
+      <th>vid_id</th>
+      <th>vid_channel_id</th>
+      <th>vid_deets</th>
+      <th>vid_response</th>
+      <th>title</th>
+      <th>publishedAt</th>
+      <th>tcomment_id</th>
+      <th>tcresponse</th>
+      <th>textDisplay</th>
+      <th>textOriginal</th>
+      <th>totalReplyCount</th>
+      <th>rep_comment</th>
+      <th>reply_id</th>
+      <th>comments</th>
+      <th>authorChannelId</th>
+      <th>com_id</th>
+      <th>comidx</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>119</th>
+      <td>119</td>
+      <td>g4QqJoox8tc</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-11-02T11:20:13Z</td>
+      <td>NaN</td>
+      <td>{'kind': 'youtube#comment', 'etag': 'yd5KSzb3_...</td>
+      <td>... and they said it gives you the munchies.</td>
+      <td>... and they said it gives you the munchies.</td>
+      <td>NaN</td>
+      <td>{'kind': 'youtube#comment', 'etag': 'yd5KSzb3_...</td>
+      <td>Ugy2ZO2t370rDO-eWoZ4AaABAg.9husbe2WJcN9hvjM9rBbfr</td>
+      <td>... and they said it gives you the munchies.</td>
+      <td>UCiKwxLKyahZ2INq3VljI4DQ</td>
+      <td>Ugy2ZO2t370rDO-eWoZ4AaABAg.9husbe2WJcN9hvjM9rBbfr</td>
+      <td>119:: ... and they said it gives you the munch...</td>
+    </tr>
+    <tr>
+      <th>120</th>
+      <td>120</td>
+      <td>g4QqJoox8tc</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-11-02T03:07:55Z</td>
+      <td>Ugx3lPLxH7NyOIZxzEl4AaABAg</td>
+      <td>{'kind': 'youtube#commentThread', 'etag': 'Gzv...</td>
+      <td>My first thought was Rich Roll</td>
+      <td>My first thought was Rich Roll</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>My first thought was Rich Roll</td>
+      <td>UC_-vIy5tSDQWnAV0xM2B53w</td>
+      <td>Ugx3lPLxH7NyOIZxzEl4AaABAg</td>
+      <td>120:: my first thought was rich roll ::</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="create-text-blocks" class="level2">
+<h2 class="anchored" data-anchor-id="create-text-blocks">Create Text Blocks</h2>
+<blockquote class="blockquote">
+<p>Here we’ll put all the text together into blocks of 5,000 characters or less. 5k characters is the API limit on the BERN biobert labeler model.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>blocks <span class="op">=</span> create_all_text_blocks(df<span class="op">=</span>coms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="check-the-top-and-bottom-text-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="check-the-top-and-bottom-text-blocks">Check the top and bottom text blocks</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> blocks[:<span class="dv">2</span>]: <span class="bu">print</span>(o[:<span class="dv">50</span>])<span class="op">;</span><span class="bu">print</span>()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'... '</span>)<span class="op">;</span><span class="bu">print</span>()<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> blocks[<span class="op">-</span><span class="dv">2</span>:]: <span class="bu">print</span>(o[:<span class="dv">50</span>])<span class="op">;</span> <span class="bu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0:: if exercise and/or the interaction with alcoho
+
+23:: i wish i workout 6 days a week hard and when 
+
+... 
+
+81:: as a recovering alcoholic, damn sign me up fo
+
+103:: i have to force myself, both to do exercise 
+</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="query-bern-one-block-at-a-time" class="level2">
+<h2 class="anchored" data-anchor-id="query-bern-one-block-at-a-time">Query BERN one block at a time</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dfo <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> blocks:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(o))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> query_plain(text<span class="op">=</span>o)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    dfo <span class="op">=</span> dfo.append({<span class="st">'block'</span>:o, <span class="st">'out'</span>:out},ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>dfo.tail(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4868
+4080
+4853
+3668
+4868
+2046</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>block</th>
+      <th>out</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4</th>
+      <td>81:: as a recovering alcoholic, damn sign me u...</td>
+      <td>{'annotations': [{'id': ['mesh:D000437', 'mim:...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>103:: i have to force myself, both to do exerc...</td>
+      <td>{'annotations': [{'id': ['CHEBI:16236'], 'is_n...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="concat-all-text-blocks-into-a-nice-labeled-df" class="level1">
+<h1>Concat All Text Blocks into a nice labeled df</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> merge_annotations_with_textblock_idx(dfa,<span class="co">#daframe containing 'span' column with the text locations of each </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                                         dfi): <span class="co">#dataframe containing the comment index to reference later</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create str_end col as type str</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    dfa.span <span class="op">=</span> dfa.span.astype(<span class="bu">str</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    dfa [<span class="st">'str_end'</span>] <span class="op">=</span> dfa.span.<span class="bu">str</span>.replace(<span class="vs">r".*'end': (\d+)}"</span>,<span class="vs">r"\1"</span>,regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    dfa.str_end <span class="op">=</span> dfa.str_end.astype(<span class="bu">int</span>)  <span class="co"># make str end as type str</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add dfi_idx col</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    dfi.reset_index(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    dfi.rename(columns<span class="op">=</span>{<span class="st">'index'</span>:<span class="st">'dfi_bloc_idx'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    dfi.dfi_bloc_idx <span class="op">=</span> dfi.dfi_bloc_idx.astype(<span class="bu">int</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create com_idx pulling it from the text via regex</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    dfi[<span class="st">'comidx'</span>] <span class="op">=</span> dfi.text.replace(<span class="vs">r"((\d+)?::.*)"</span>,<span class="vs">r"\2"</span>,regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    dfi.comidx <span class="op">=</span> dfi.comidx.astype(<span class="bu">int</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">type</span>(dfi.comidx[<span class="dv">0</span>]))</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    dfi.comidx <span class="op">=</span> dfi.comidx.astype(<span class="bu">int</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> o,m <span class="kw">in</span> <span class="bu">zip</span>(dfi.index,dfi.span):  <span class="co">#add dfi_idx col to dfa </span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        x,y <span class="op">=</span> m <span class="co">#open span tuple</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        <span class="co">#write conditions for specific df rows</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>        conds <span class="op">=</span> (dfa.str_end <span class="op">&gt;</span> x) <span class="op">&amp;</span> (dfa.str_end <span class="op">&lt;</span> y)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>        dfa[<span class="st">'dfi_bloc_idx'</span>] <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        dfa.loc[conds,<span class="st">'dfi_bloc_idx'</span>] <span class="op">=</span> o <span class="co">#save the index of the dfi span that fits to dfa</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>        dfa.dfi_bloc_idx <span class="op">=</span> dfa.dfi_bloc_idx.astype(<span class="bu">str</span>)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># dfa.merge(dfi, left_on='dfi_idx',right_index=True)</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> dfa.merge(dfi, left_on<span class="op">=</span><span class="st">'dfi_bloc_idx'</span>,right_on<span class="op">=</span><span class="st">'dfi_bloc_idx'</span>)<span class="op">;</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dfi_dfa_prep(dfa,dfi):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Prepares dfi and dfa to both have dfi_bloc_idx'''</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    dfi.reset_index(drop<span class="op">=</span><span class="va">True</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    dfi[<span class="st">'dfi_bloc_idx'</span>] <span class="op">=</span> dfi.index</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># dfi.rename(columns={'index':'dfi_bloc_idx'},inplace=True)</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    dfi.dfi_bloc_idx <span class="op">=</span> dfi.dfi_bloc_idx.astype(<span class="bu">int</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create com_idx pulling it from the text via regex</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    dfi[<span class="st">'comidx'</span>] <span class="op">=</span> dfi.text.replace(<span class="vs">r"((\d+)?::.*)"</span>,<span class="vs">r"\2"</span>,regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    dfi.comidx <span class="op">=</span> dfi.comidx.astype(<span class="bu">int</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create str_end col as type str</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    dfa.span <span class="op">=</span> dfa.span.astype(<span class="bu">str</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    dfa [<span class="st">'str_end'</span>] <span class="op">=</span> dfa.span.<span class="bu">str</span>.replace(<span class="vs">r".*'end': (\d+)}"</span>,<span class="vs">r"\1"</span>,regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    dfa.str_end <span class="op">=</span> dfa.str_end.astype(<span class="bu">int</span>)  <span class="co"># make str end as type str</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    dfa[<span class="st">'dfi_bloc_idx'</span>] <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dfa,dfi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> merge_annotations_with_dfi_bloc_idx(dfa,<span class="co">#daframe containing 'span' column with the text locations of each </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                         dfi):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Merges dfa with dfi so that all 'mentions' and 'obj' have a comidx(comemnt index) and a dfi_bloc_idx(dfi textbock index). This way we can track how different people have comented on each biomedical word('mention')'''</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#prep dfi and dfa</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    dfa,dfi <span class="op">=</span> dfi_dfa_prep(dfa,dfi)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add dfi_bloc_idx col</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> o,m <span class="kw">in</span> <span class="bu">zip</span>(dfi.index,dfi.span):  <span class="co">#add dfi_idx col to dfa </span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        x,y <span class="op">=</span> m <span class="co">#open span tuple</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">#write conditions for specific df rows</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        conds <span class="op">=</span> (dfa.str_end <span class="op">&gt;</span> x) <span class="op">&amp;</span> (dfa.str_end <span class="op">&lt;=</span> y)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        dfa.loc[conds,<span class="st">'dfi_bloc_idx'</span>] <span class="op">=</span> o <span class="co">#save the index of the dfi span that fits to dfa</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    dfa.dfi_bloc_idx <span class="op">=</span> dfa.dfi_bloc_idx.astype(<span class="bu">int</span>) <span class="co">#make column np.64</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># merge it all</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> dfa.merge(dfi, left_on<span class="op">=</span><span class="st">'dfi_bloc_idx'</span>,right_on<span class="op">=</span><span class="st">'dfi_bloc_idx'</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="merge-all-annotation-onto-one-df" class="level4">
+<h4 class="anchored" data-anchor-id="merge-all-annotation-onto-one-df">Merge all annotation onto one df</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> dfo.index:</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    dfa  <span class="op">=</span>pd.DataFrame(dfo.out[o][<span class="st">'annotations'</span>])</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    dfi <span class="op">=</span> get_comment_spans_textblock(dfo.block[o])</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    dfmerg <span class="op">=</span> merge_annotations_with_dfi_bloc_idx(dfa,dfi)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.concat([df,dfmerg])</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="merge-authorchannelids-onto-df-with-annotations" class="level4">
+<h4 class="anchored" data-anchor-id="merge-authorchannelids-onto-df-with-annotations">Merge authorChannelId’s onto df with annotations</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_authorId <span class="op">=</span> coms[[<span class="st">'idx'</span>,<span class="st">'authorChannelId'</span>]] <span class="co">#simplify coms</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df_authorId <span class="op">=</span> df_authorId.rename(columns<span class="op">=</span>{<span class="st">'idx'</span>:<span class="st">'comidx'</span>}) <span class="co">#rename idx to match</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>df_authorId.comidx <span class="op">=</span> df_authorId.comidx.astype(<span class="bu">int</span>) <span class="co">#make comidx integer</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.merge(df_authorId,how<span class="op">=</span><span class="st">'left'</span>) <span class="co">#left merge author Id's onto main df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="use-some-regex-to-consolidate-some-terms-or-mentions" class="level1">
+<h1>use some regex to consolidate some terms or ‘mentions’</h1>
+<section id="check-for-any-bio-terms-that-can-be-counted-as-the-same" class="level4">
+<h4 class="anchored" data-anchor-id="check-for-any-bio-terms-that-can-be-counted-as-the-same">Check for any bio terms that can be counted as the same</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df.mention.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>array(['alcohol', 'rhonda', 'ayahuasca', 'psylocybin', 'patients',
+       'fgf21', 'indole 3-carbinol', 'brussels sprouts', 'testosterone',
+       'dy-hydro testosterone', 'estrogen', 'estradiol', 'participants',
+       'nicotinamide riboside', 'cancer', 'chick', 'fgf-21',
+       'alcohol craving', 'fgf', 'alcohol abuse disorder', 'alcoholic',
+       'man', 'alcoholism', 'people', 'recumbent', 'amphetamine',
+       'alcoholics', 'naltrexone', 'acamprosate', 'ketosis', 'ketones',
+       'medical professionals', 'silver', 'adhd',
+       'non-alcoholic fatty liver disease', 'fatty liver', 'women',
+       'fg21', 'humans', 'human', 'disulfiram', 'anxiety disorders',
+       'pregabalin', 'benzos', 'carbohydrates', 'snails', 'sugar',
+       'metabolic syndrome', 'alcohol use disorder', 'munchies'],
+      dtype=object)</code></pre>
+</div>
+</div>
+</section>
+<section id="looks-like-alcoholism-and-alcoholic-are-the-same-so-well-combine-those" class="level4">
+<h4 class="anchored" data-anchor-id="looks-like-alcoholism-and-alcoholic-are-the-same-so-well-combine-those">Looks like alcoholism and alcoholic are the same so we’ll combine those</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'bio_term'</span>] <span class="op">=</span> df.mention.<span class="bu">str</span>.replace(<span class="vs">r'alcoholi.*'</span>,<span class="vs">r'alcoholism'</span>,regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'bio_term'</span>] <span class="op">=</span> df.bio_term.<span class="bu">str</span>.replace(<span class="vs">r'alcohol.*disorder'</span>,<span class="vs">r'alcoholism'</span>,regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'bio_term'</span>] <span class="op">=</span> df.bio_term.<span class="bu">str</span>.replace(<span class="vs">r'fg.*21'</span>,<span class="vs">r'fgf21'</span>,regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'bio_term'</span>] <span class="op">=</span> df.bio_term.<span class="bu">str</span>.replace(<span class="st">'people'</span>,<span class="st">'humans'</span>,regex<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-bio_term-column-that-contains-both-mention-and-obj-columns-for-bar-graph-clarity" class="level4">
+<h4 class="anchored" data-anchor-id="create-bio_term-column-that-contains-both-mention-and-obj-columns-for-bar-graph-clarity">create bio_term column that contains both ‘mention’ and ‘obj’ columns for bar graph clarity</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'bio_term'</span>] <span class="op">=</span> df.bio_term <span class="op">+</span><span class="st">' ('</span><span class="op">+</span>df.obj <span class="op">+</span><span class="st">')'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="graph-the-bio-terms" class="level1">
+<h1>Graph the Bio Terms</h1>
+<p>First we’ll create some functions to group the terms</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> group_bio_words_author_count(df,word_col, mention_min<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    dfwords <span class="op">=</span> df</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    dfwords <span class="op">=</span> df.groupby([word_col,<span class="st">'obj'</span>]).authorChannelId.nunique().reset_index().sort_values(<span class="st">'authorChannelId'</span>,ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    dfwords <span class="op">=</span> dfwords.loc[dfwords.authorChannelId <span class="op">&gt;=</span>mention_min]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    dfwords.reset_index(drop<span class="op">=</span><span class="va">True</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dfwords</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> group_bio_words_com_count(df,word_col, mention_min<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    dfwords <span class="op">=</span> df</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    dfwords <span class="op">=</span> df.groupby([word_col,<span class="st">'obj'</span>]).comidx.nunique().reset_index().sort_values(<span class="st">'comidx'</span>,ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    dfwords <span class="op">=</span> dfwords.loc[dfwords.comidx <span class="op">&gt;=</span>mention_min]</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    dfwords.reset_index(drop<span class="op">=</span><span class="va">True</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dfwords</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="here-well-create-a-function-to-plot-what-weve-grouped" class="level3">
+<h3 class="anchored" data-anchor-id="here-well-create-a-function-to-plot-what-weve-grouped">Here we’ll create a function to plot what we’ve grouped</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_bio_terms(x,y,xlabel):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set the width and height of the figure</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> sns.barplot(x<span class="op">=</span>x, y<span class="op">=</span>y)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#title</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f'Biomedical Terms in Comments'</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add label for  axis</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlabel<span class="op">=</span>xlabel)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="unique-users-who-mention-a-term" class="level2">
+<h2 class="anchored" data-anchor-id="unique-users-who-mention-a-term">Unique Users Who Mention a Term</h2>
+<p>(for some reasone I have to comment this graph out for it to run with nbdev)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install seaborn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement already satisfied: seaborn in /opt/conda/lib/python3.7/site-packages (0.12.1)
+Requirement already satisfied: pandas&gt;=0.25 in /opt/conda/lib/python3.7/site-packages (from seaborn) (1.3.4)
+Requirement already satisfied: typing_extensions in /opt/conda/lib/python3.7/site-packages (from seaborn) (3.10.0.2)
+Requirement already satisfied: matplotlib!=3.6.1,&gt;=3.1 in /opt/conda/lib/python3.7/site-packages (from seaborn) (3.4.3)
+Requirement already satisfied: numpy&gt;=1.17 in /opt/conda/lib/python3.7/site-packages (from seaborn) (1.21.2)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,&gt;=3.1-&gt;seaborn) (2.4.7)
+Requirement already satisfied: pillow&gt;=6.2.0 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,&gt;=3.1-&gt;seaborn) (8.4.0)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,&gt;=3.1-&gt;seaborn) (2.8.2)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,&gt;=3.1-&gt;seaborn) (0.11.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,&gt;=3.1-&gt;seaborn) (1.3.2)
+Requirement already satisfied: pytz&gt;=2017.3 in /opt/conda/lib/python3.7/site-packages (from pandas&gt;=0.25-&gt;seaborn) (2021.3)
+Requirement already satisfied: six&gt;=1.5 in /opt/conda/lib/python3.7/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib!=3.6.1,&gt;=3.1-&gt;seaborn) (1.16.0)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dfwords <span class="op">=</span> group_bio_words_author_count(df, <span class="st">'bio_term'</span>,mention_min<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plot_bio_terms(x<span class="op">=</span>dfwords.authorChannelId ,y<span class="op">=</span>dfwords.bio_term, xlabel<span class="op">=</span><span class="st">'Total Users Using a Term'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>dfwords</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="01_found_my_fitness_bioBert_BERN_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>bio_term</th>
+      <th>obj</th>
+      <th>authorChannelId</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>alcohol (drug)</td>
+      <td>drug</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>fgf21 (gene)</td>
+      <td>gene</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>alcoholism (disease)</td>
+      <td>disease</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>humans (species)</td>
+      <td>species</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>naltrexone (drug)</td>
+      <td>drug</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="unique-comments-that-mention-a-term" class="level1">
+<h1>Unique Comments that mention a term</h1>
+<blockquote class="blockquote">
+<p>In this case we see that they are the nearly the same but it appears one user commented 2x using the term ‘alcohol’ (for some reasone I have to comment this graph out for it to run with nbdev)</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dfwords = group_bio_words_com_count(df, 'bio_term',mention_min=2)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_bio_terms(x=dfwords.comidx ,y=dfwords.bio_term, xlabel='Unique Comments that Mention Term')</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># dfwords</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="terms-mentioned-infrequently" class="level3">
+<h3 class="anchored" data-anchor-id="terms-mentioned-infrequently">Terms Mentioned Infrequently</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dfwords <span class="op">=</span> group_bio_words_author_count(df, <span class="st">'bio_term'</span>,mention_min<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>dfwords[dfwords.authorChannelId<span class="op">&lt;</span> <span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>bio_term</th>
+      <th>obj</th>
+      <th>authorChannelId</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>acamprosate (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>patients (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>medical professionals (cell_type)</td>
+      <td>cell_type</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>metabolic syndrome (disease)</td>
+      <td>disease</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>munchies (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>nicotinamide riboside (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>non-alcoholism (disease)</td>
+      <td>disease</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>participants (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>pregabalin (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>ketosis (disease)</td>
+      <td>disease</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>psylocybin (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>recumbent (DNA)</td>
+      <td>DNA</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>rhonda (DNA)</td>
+      <td>DNA</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>rhonda (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>silver (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>snails (cell_type)</td>
+      <td>cell_type</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>sugar (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>testosterone (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>man (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>indole 3-carbinol (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>ketones (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>carbohydrates (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>alcohol craving (disease)</td>
+      <td>disease</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>amphetamine (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>anxiety disorders (disease)</td>
+      <td>disease</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>ayahuasca (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>benzos (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>brussels sprouts (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>cancer (disease)</td>
+      <td>disease</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>chick (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>adhd (disease)</td>
+      <td>disease</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>disulfiram (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>dy-hydro testosterone (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>estradiol (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>estrogen (drug)</td>
+      <td>drug</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>fatty liver (disease)</td>
+      <td>disease</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>fgf (DNA)</td>
+      <td>DNA</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>human (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>women (species)</td>
+      <td>species</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="save-top-bio-terms-.csv" class="level3">
+<h3 class="anchored" data-anchor-id="save-top-bio-terms-.csv">Save Top Bio Terms .csv</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dfwords <span class="op">=</span> group_bio_words_author_count(df, <span class="st">'bio_term'</span>,mention_min<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>top_bio_terms <span class="op">=</span>  dfwords.loc[dfwords.authorChannelId<span class="op">&gt;</span> <span class="dv">1</span>]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>top_bio_terms.to_csv(<span class="st">'text_sample/top_bio_terms.csv'</span>,index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>dfwords[dfwords.authorChannelId<span class="op">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>bio_term</th>
+      <th>obj</th>
+      <th>authorChannelId</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>alcohol (drug)</td>
+      <td>drug</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>fgf21 (gene)</td>
+      <td>gene</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>alcoholism (disease)</td>
+      <td>disease</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>humans (species)</td>
+      <td>species</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>naltrexone (drug)</td>
+      <td>drug</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

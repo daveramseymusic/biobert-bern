@@ -1,0 +1,107 @@
+[
+  {
+    "objectID": "zero_shot_linkedin_test.html",
+    "href": "zero_shot_linkedin_test.html",
+    "title": "Zero Shot Classification",
+    "section": "",
+    "text": "#!pip install transformers"
+  },
+  {
+    "objectID": "zero_shot_linkedin_test.html#print-graphs-from-labels",
+    "href": "zero_shot_linkedin_test.html#print-graphs-from-labels",
+    "title": "Zero Shot Classification",
+    "section": "Print Graphs from Labels",
+    "text": "Print Graphs from Labels\n\nanalyze_one(df,candidate_labels,index=0)\n\nIf exercise and/or the interaction with alcohol behaviors has really piqued your interest, make sure to check out my recent \"Sober October\" post series found on my Instagram: https://www.instagram.com/foundmyfitness Support the show as a premium member: https://www.foundmyfitness.com/crowdsponsor  Thanks for watching! Hi Rhonda, could this mean that \"one time\" phsychedelic treatments with e.g.: ay..."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Intro biobert-bern",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation."
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "Intro biobert-bern",
+    "section": "Install",
+    "text": "Install\npip install biobert_bern"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "Intro biobert-bern",
+    "section": "How to use",
+    "text": "How to use\nGrab functions from biobertApi notebook to use the BERN2 api that automatically labels biomedical words located in the block of text that you send it"
+  },
+  {
+    "objectID": "found_my_fitness_biobert_bern.html",
+    "href": "found_my_fitness_biobert_bern.html",
+    "title": "Found My Fitness Example",
+    "section": "",
+    "text": "Here we’ll try using elements from the biobertApi module to label biomedical terms in the comments section of a Found My Fitness youtube video that looks like this :"
+  },
+  {
+    "objectID": "found_my_fitness_biobert_bern.html#load-libraries-and-data",
+    "href": "found_my_fitness_biobert_bern.html#load-libraries-and-data",
+    "title": "Found My Fitness Example",
+    "section": "Load Libraries and Data",
+    "text": "Load Libraries and Data\n\nFirst we’ll load all libraries we’ll need and the YouTube comments for labeling\n\n\nfrom biobert_bern.biobertApi import *  #this grabs all functions from biobertApi .py file\n\nLess than 5k characters. Only 1 block necessary.\n\n\n\nimport requests\nimport re\nimport pandas as pd\nfrom nbdev.showdoc import *\nimport fastai\nfrom pathlib import *\nimport numpy as np     \nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n\npath = Path('./text_sample') # save path\ncomment_csv= 'found_my_fitness_UCWF8SqJVNlx-ctXbLswcTcA_youtube_comments_only_121rows.csv'\ncoms = pd.read_csv(path/comment_csv) #load csv\ncoms.rename(columns = {'comment': 'comments'},inplace=True) # rename comment to comments"
+  },
+  {
+    "objectID": "found_my_fitness_biobert_bern.html#now-start-splitting-off-all-the-cumsums-5000-and-stack-them-back-together.",
+    "href": "found_my_fitness_biobert_bern.html#now-start-splitting-off-all-the-cumsums-5000-and-stack-them-back-together.",
+    "title": "Found My Fitness Example",
+    "section": "Now start splitting off all the cumsums <5000 and stack them back together.",
+    "text": "Now start splitting off all the cumsums <5000 and stack them back together.\n\nThe BERN api will only let us send text that is less thatn 5k characters at a time so we’ll block the comments together in groups that are less than 5k each\n\n\nCreate Section Labels\n\ncoms = create_com_with_idx(coms); coms.tail(2)\n\n\n\n\n\n  \n    \n      \n      idx\n      vid_id\n      vid_channel_id\n      vid_deets\n      vid_response\n      title\n      publishedAt\n      tcomment_id\n      tcresponse\n      textDisplay\n      textOriginal\n      totalReplyCount\n      rep_comment\n      reply_id\n      comments\n      authorChannelId\n      com_id\n      comidx\n    \n  \n  \n    \n      119\n      119\n      g4QqJoox8tc\n      NaN\n      NaN\n      NaN\n      NaN\n      2022-11-02T11:20:13Z\n      NaN\n      {'kind': 'youtube#comment', 'etag': 'yd5KSzb3_...\n      ... and they said it gives you the munchies.\n      ... and they said it gives you the munchies.\n      NaN\n      {'kind': 'youtube#comment', 'etag': 'yd5KSzb3_...\n      Ugy2ZO2t370rDO-eWoZ4AaABAg.9husbe2WJcN9hvjM9rBbfr\n      ... and they said it gives you the munchies.\n      UCiKwxLKyahZ2INq3VljI4DQ\n      Ugy2ZO2t370rDO-eWoZ4AaABAg.9husbe2WJcN9hvjM9rBbfr\n      119:: ... and they said it gives you the munch...\n    \n    \n      120\n      120\n      g4QqJoox8tc\n      NaN\n      NaN\n      NaN\n      NaN\n      2022-11-02T03:07:55Z\n      Ugx3lPLxH7NyOIZxzEl4AaABAg\n      {'kind': 'youtube#commentThread', 'etag': 'Gzv...\n      My first thought was Rich Roll\n      My first thought was Rich Roll\n      0.0\n      NaN\n      NaN\n      My first thought was Rich Roll\n      UC_-vIy5tSDQWnAV0xM2B53w\n      Ugx3lPLxH7NyOIZxzEl4AaABAg\n      120:: my first thought was rich roll ::"
+  },
+  {
+    "objectID": "found_my_fitness_biobert_bern.html#create-text-blocks",
+    "href": "found_my_fitness_biobert_bern.html#create-text-blocks",
+    "title": "Found My Fitness Example",
+    "section": "Create Text Blocks",
+    "text": "Create Text Blocks\n\nHere we’ll put all the text together into blocks of 5,000 characters or less. 5k characters is the API limit on the BERN biobert labeler model.\n\n\nblocks = create_all_text_blocks(df=coms)\n\n\nCheck the top and bottom text blocks\n\nfor o in blocks[:2]: print(o[:50]);print()\nprint('... ');print();\nfor o in blocks[-2:]: print(o[:50]); print()\n\n0:: if exercise and/or the interaction with alcoho\n\n23:: i wish i workout 6 days a week hard and when \n\n... \n\n81:: as a recovering alcoholic, damn sign me up fo\n\n103:: i have to force myself, both to do exercise"
+  },
+  {
+    "objectID": "found_my_fitness_biobert_bern.html#query-bern-one-block-at-a-time",
+    "href": "found_my_fitness_biobert_bern.html#query-bern-one-block-at-a-time",
+    "title": "Found My Fitness Example",
+    "section": "Query BERN one block at a time",
+    "text": "Query BERN one block at a time\n\ndfo = pd.DataFrame()\nfor o in blocks:\n    print(len(o))\n    out = query_plain(text=o)\n    dfo = dfo.append({'block':o, 'out':out},ignore_index=True)\ndfo.tail(2)\n\n4868\n4080\n4853\n3668\n4868\n2046\n\n\n\n\n\n\n  \n    \n      \n      block\n      out\n    \n  \n  \n    \n      4\n      81:: as a recovering alcoholic, damn sign me u...\n      {'annotations': [{'id': ['mesh:D000437', 'mim:...\n    \n    \n      5\n      103:: i have to force myself, both to do exerc...\n      {'annotations': [{'id': ['CHEBI:16236'], 'is_n..."
+  },
+  {
+    "objectID": "found_my_fitness_biobert_bern.html#unique-users-who-mention-a-term",
+    "href": "found_my_fitness_biobert_bern.html#unique-users-who-mention-a-term",
+    "title": "Found My Fitness Example",
+    "section": "Unique Users Who Mention a Term",
+    "text": "Unique Users Who Mention a Term\n(for some reasone I have to comment this graph out for it to run with nbdev)\n\n!pip install seaborn\n\nRequirement already satisfied: seaborn in /opt/conda/lib/python3.7/site-packages (0.12.1)\nRequirement already satisfied: pandas>=0.25 in /opt/conda/lib/python3.7/site-packages (from seaborn) (1.3.4)\nRequirement already satisfied: typing_extensions in /opt/conda/lib/python3.7/site-packages (from seaborn) (3.10.0.2)\nRequirement already satisfied: matplotlib!=3.6.1,>=3.1 in /opt/conda/lib/python3.7/site-packages (from seaborn) (3.4.3)\nRequirement already satisfied: numpy>=1.17 in /opt/conda/lib/python3.7/site-packages (from seaborn) (1.21.2)\nRequirement already satisfied: pyparsing>=2.2.1 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,>=3.1->seaborn) (2.4.7)\nRequirement already satisfied: pillow>=6.2.0 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,>=3.1->seaborn) (8.4.0)\nRequirement already satisfied: python-dateutil>=2.7 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,>=3.1->seaborn) (2.8.2)\nRequirement already satisfied: cycler>=0.10 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,>=3.1->seaborn) (0.11.0)\nRequirement already satisfied: kiwisolver>=1.0.1 in /opt/conda/lib/python3.7/site-packages (from matplotlib!=3.6.1,>=3.1->seaborn) (1.3.2)\nRequirement already satisfied: pytz>=2017.3 in /opt/conda/lib/python3.7/site-packages (from pandas>=0.25->seaborn) (2021.3)\nRequirement already satisfied: six>=1.5 in /opt/conda/lib/python3.7/site-packages (from python-dateutil>=2.7->matplotlib!=3.6.1,>=3.1->seaborn) (1.16.0)\n\n\n\nimport seaborn as sns\n\n\ndfwords = group_bio_words_author_count(df, 'bio_term',mention_min=2)\nplot_bio_terms(x=dfwords.authorChannelId ,y=dfwords.bio_term, xlabel='Total Users Using a Term')\ndfwords\n\n\n\n\n\n\n\n\n  \n    \n      \n      bio_term\n      obj\n      authorChannelId\n    \n  \n  \n    \n      0\n      alcohol (drug)\n      drug\n      17\n    \n    \n      1\n      fgf21 (gene)\n      gene\n      9\n    \n    \n      2\n      alcoholism (disease)\n      disease\n      8\n    \n    \n      3\n      humans (species)\n      species\n      7\n    \n    \n      4\n      naltrexone (drug)\n      drug\n      2"
+  },
+  {
+    "objectID": "biobertapi.html#get-start-and-end-doc-indecies",
+    "href": "biobertapi.html#get-start-and-end-doc-indecies",
+    "title": "biobertApi",
+    "section": "Get Start and End Doc Indecies",
+    "text": "Get Start and End Doc Indecies\n\nHere we’ll use regex to find the text indecies of each doc or comment. This will tell us which doc or comment is teh parent of each biomedical term returned from BERN2\n\n\nsource\n\nget_comment_spans_textblock\n\n get_comment_spans_textblock (text_block:str)\n\nThis function returns a dataframe full of the start, end and span of each text comment/doc in the text_block\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\ntext_block\nstr\nsingle block of text in this structure: '07 textt ext text. ::'\n\n\n\n\ndfi = get_comment_spans_textblock(text_block); dfi\n\n\n\n\n\n  \n    \n      \n      text\n      start\n      end\n      span\n    \n  \n  \n    \n      0\n      0:: autophagy maintains tumour growth through ...\n      0.0\n      80.0\n      (0, 80)\n    \n    \n      1\n      1:: x-rays were negative and physical assessme...\n      81.0\n      305.0\n      (81, 305)\n    \n    \n      2\n      2:: it is a skin disease causing much itchines...\n      306.0\n      450.0\n      (306, 450)\n    \n    \n      3\n      3:: maybe its a tumour. maybe take some tyleno...\n      451.0\n      541.0\n      (451, 541)"
+  },
+  {
+    "objectID": "biobertapi.html#send-it-all-to-bern2",
+    "href": "biobertapi.html#send-it-all-to-bern2",
+    "title": "biobertApi",
+    "section": "Send it all to Bern2",
+    "text": "Send it all to Bern2\n\n# # Send it all to Bern2\n# output = query_plain(text=text_block);\n\n\nAn example of the bern2 out put\n\noutput = {'annotations': [{'id': ['mesh:D009369'],\n   'is_neural_normalized': False,\n   'mention': 'tumour',\n   'obj': 'disease',\n   'prob': 0.9999957084655762,\n   'span': {'begin': 23, 'end': 29}},\n  {'id': ['mesh:D001120'],\n   'is_neural_normalized': False,\n   'mention': 'arginine',\n   'obj': 'drug',\n   'prob': 0.9939362406730652,\n   'span': {'begin': 67, 'end': 75}},\n  {'id': ['mesh:D000082'],\n   'is_neural_normalized': False,\n   'mention': 'tylenol',\n   'obj': 'drug',\n   'prob': 0.9972689747810364,\n   'span': {'begin': 278, 'end': 285}},\n  {'id': ['mesh:D003061'],\n   'is_neural_normalized': False,\n   'mention': 'codeine',\n   'obj': 'drug',\n   'prob': 0.947392463684082,\n   'span': {'begin': 291, 'end': 298}},\n  {'id': ['mesh:D012871'],\n   'is_neural_normalized': False,\n   'mention': 'skin disease',\n   'obj': 'disease',\n   'prob': 0.9998037815093994,\n   'span': {'begin': 313, 'end': 325}},\n  {'id': ['mesh:D011537'],\n   'is_neural_normalized': False,\n   'mention': 'itchiness',\n   'obj': 'disease',\n   'prob': 0.9898108243942261,\n   'span': {'begin': 339, 'end': 348}},\n  {'id': ['mesh:D000080822'],\n   'is_neural_normalized': False,\n   'mention': 'redness',\n   'obj': 'disease',\n   'prob': 0.9481215476989746,\n   'span': {'begin': 370, 'end': 377}},\n  {'id': ['mesh:D004487'],\n   'is_neural_normalized': True,\n   'mention': 'swelling',\n   'obj': 'disease',\n   'prob': 0.9774566292762756,\n   'span': {'begin': 379, 'end': 387}},\n  {'id': ['mesh:D012135'],\n   'is_neural_normalized': True,\n   'mention': 'cracking',\n   'obj': 'disease',\n   'prob': 0.8271865248680115,\n   'span': {'begin': 389, 'end': 397}},\n  {'id': ['mesh:D002862'],\n   'is_neural_normalized': True,\n   'mention': 'crusting',\n   'obj': 'disease',\n   'prob': 0.9943530559539795,\n   'span': {'begin': 420, 'end': 428}},\n  {'id': ['mesh:D012871'],\n   'is_neural_normalized': True,\n   'mention': 'scaling',\n   'obj': 'disease',\n   'prob': 0.9980024695396423,\n   'span': {'begin': 434, 'end': 441}},\n  {'id': ['mesh:D009369'],\n   'is_neural_normalized': False,\n   'mention': 'tumour',\n   'obj': 'disease',\n   'prob': 0.9999805688858032,\n   'span': {'begin': 460, 'end': 466}},\n  {'id': ['mesh:D000082'],\n   'is_neural_normalized': False,\n   'mention': 'tylenol',\n   'obj': 'drug',\n   'prob': 0.9799597263336182,\n   'span': {'begin': 484, 'end': 491}}],\n 'text': \"0: autophagy maintains tumour growth through circulating the great arginine.:: 1: x-rays were negative and physical assessment determined soft tissue damage to the lateral aspect of her ankle. she was initially treated with ice, an ace wrap, crutches and mild pain medications ,tylenol with codeine,:: 2: it is a skin disease causing much itchiness. scratching leads to redness, swelling, cracking, weeping clear fluid, crusting, and scaling.:: 3: maybe its a tumour. maybe take some tylenol. don't worry i'm not a doctor. i'm dave::\",\n 'timestamp': 'Mon Nov 14 18:00:04 +0000 2022'}\n\nExample of overall df\n\npd.DataFrame(output)[-3:-1]\n\n\n\n\n\n  \n    \n      \n      annotations\n      text\n      timestamp\n    \n  \n  \n    \n      10\n      {'id': ['mesh:D012871'], 'is_neural_normalized...\n      0: autophagy maintains tumour growth through c...\n      Mon Nov 14 18:00:04 +0000 2022\n    \n    \n      11\n      {'id': ['mesh:D009369'], 'is_neural_normalized...\n      0: autophagy maintains tumour growth through c...\n      Mon Nov 14 18:00:04 +0000 2022\n    \n  \n\n\n\n\nExample of df from just the annotations column\n\npd.DataFrame(output['annotations'])[-3:-1]\n\n\n\n\n\n  \n    \n      \n      id\n      is_neural_normalized\n      mention\n      obj\n      prob\n      span\n    \n  \n  \n    \n      10\n      [mesh:D012871]\n      True\n      scaling\n      disease\n      0.998002\n      {'begin': 434, 'end': 441}\n    \n    \n      11\n      [mesh:D009369]\n      False\n      tumour\n      disease\n      0.999981\n      {'begin': 460, 'end': 466}"
+  },
+  {
+    "objectID": "biobertapi.html#add-bern2-lables-to-docs",
+    "href": "biobertapi.html#add-bern2-lables-to-docs",
+    "title": "biobertApi",
+    "section": "Add BERN2 Lables to Docs",
+    "text": "Add BERN2 Lables to Docs\n\nWe sent all separate text documents as one big text document to bern2. Now we’ll re-separate the labeled text to show which biomedical words were in which documents.\n\n\ndfa = pd.DataFrame(output['annotations']) #crete dfa for dataframe of Annotaation\n\n# create str_end col as type str\ndfa.span = dfa.span.astype(str)\ndfa ['str_end'] = dfa.span.str.replace(r\".*'end': (\\d+)}\",r\"\\1\",regex=True)\n\ndfa.str_end = dfa.str_end.astype(int)  # make str end as type str\n\n#add dfi_idx col\ndfi.reset_index(inplace=True)\ndfi.rename(columns={'index':'dfi_idx'},inplace=True)\n\nfor o,m in zip(dfi.index,dfi.span):  #add dfi_idx col to dfa \n    x,y = m #open span tuple\n    #write conditions for specific df rows\n    conds = (dfa.str_end > x) & (dfa.str_end < y)\n    dfa.loc[conds,'dfi_idx'] = o #save the index of the dfi span that fits to dfa\n\n# dfa.merge(dfi, left_on='dfi_idx',right_index=True)\ndf = dfa.merge(dfi, left_on='dfi_idx',right_on='dfi_idx');  df.head(2)\n\n\n\n\n\n  \n    \n      \n      id\n      is_neural_normalized\n      mention\n      obj\n      prob\n      span_x\n      str_end\n      dfi_idx\n      text\n      start\n      end\n      span_y\n    \n  \n  \n    \n      0\n      [mesh:D009369]\n      False\n      tumour\n      disease\n      0.999996\n      {'begin': 23, 'end': 29}\n      29\n      0.0\n      0:: autophagy maintains tumour growth through ...\n      0.0\n      80.0\n      (0, 80)\n    \n    \n      1\n      [mesh:D001120]\n      False\n      arginine\n      drug\n      0.993936\n      {'begin': 67, 'end': 75}\n      75\n      0.0\n      0:: autophagy maintains tumour growth through ...\n      0.0\n      80.0\n      (0, 80)"
+  },
+  {
+    "objectID": "biobertapi.html#output-df",
+    "href": "biobertapi.html#output-df",
+    "title": "biobertApi",
+    "section": "Output df",
+    "text": "Output df\n\ndf = df[['dfi_idx','mention','obj','text']]; df[-4:-1]\n\n\n\n\n\n  \n    \n      \n      dfi_idx\n      mention\n      obj\n      text\n    \n  \n  \n    \n      9\n      2.0\n      crusting\n      disease\n      2:: it is a skin disease causing much itchines...\n    \n    \n      10\n      2.0\n      scaling\n      disease\n      2:: it is a skin disease causing much itchines...\n    \n    \n      11\n      3.0\n      tumour\n      disease\n      3:: maybe its a tumour. maybe take some tyleno...\n    \n  \n\n\n\n\n\nShow # of Comments that Contain Word\n\ndfwords = df.groupby(['mention']).dfi_idx.count().reset_index().sort_values('dfi_idx',ascending=False)\n\n\n# !pip install seaborn\n\n\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n\n# # Set the width and height of the figure\n# plt.figure(figsize=(8,6))\n\n# ax = sns.barplot(x=dfwords.dfi_idx, y=dfwords.mention)\n\n# #title\n# ax.set_title(f'Biomedical Terms in Comments')\n\n# # Add label for  axis\n# ax.set(xlabel='Number of commenters mentioning the term')\n# plt.show()"
+  }
+]
